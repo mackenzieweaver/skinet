@@ -1,3 +1,4 @@
+using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +28,9 @@ namespace API
             services.AddDbContext<StoreContext>(x => 
                 x.UseSqlite(_config.GetConnectionString("DefaultConnection"))
             );
+
+            // Repository pattern - abstract data access away from controllers
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             // services.AddSwaggerGen(c =>
             // {
