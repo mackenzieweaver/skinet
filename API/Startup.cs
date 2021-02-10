@@ -32,6 +32,9 @@ namespace API
             // Repository pattern - abstract data access away from controllers
             services.AddScoped<IProductRepository, ProductRepository>();
 
+            // generic repository
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
             // services.AddSwaggerGen(c =>
             // {
             //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
