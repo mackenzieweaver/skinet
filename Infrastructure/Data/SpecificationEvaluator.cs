@@ -10,8 +10,10 @@ namespace Infrastructure.Data
     {
         public static IQueryable<TEntity> GetQuery(IQueryable<TEntity> inputQuery, ISpecification<TEntity> spec)
         {
+            // _context.Set<T>.AsQueryable()
             var query = inputQuery;
-
+            
+            // adds where clause
             if(spec.Criteria != null)
             {
                 query = query.Where(spec.Criteria);
