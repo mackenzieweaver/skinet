@@ -18,17 +18,18 @@ export class ShopService {
   getProducts(shopParams: ShopParams): Observable<IPagination> {
     // params object to send in url
     let params = new HttpParams();
-    if (shopParams.brandId) {
+    if (shopParams.brandId !== 0) {
       params = params.append('brandId', shopParams.brandId.toString());
     }
 
-    if (shopParams.typeId) {
+    if (shopParams.typeId !== 0) {
       params = params.append('typeId', shopParams.typeId.toString());
     }
+    
+    params = params.append('sort', shopParams.sort);
+    params = params.append('pageIndex', shopParams.pageNumber.toString());
+    params = params.append('pageIndex', shopParams.pageSize.toString());
 
-    if (shopParams.sort) {
-      params = params.append('sort', shopParams.sort);
-    }
     // extract body when sending observe object
     return this.http.get<IPagination>(this.baseUrl + 'products', { observe: 'response', params })
       .pipe(

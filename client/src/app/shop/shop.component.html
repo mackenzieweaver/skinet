@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-
+        <!-- side bar -->
         <section class="col-md-3">
             <h5 class="text-warning ml-md-3">Sort</h5>
             <select class="custom-select mb-md-3" (change)="onSortSelected($event.target.value)">
@@ -36,11 +36,27 @@
             </ul>
         </section>
 
+        <!-- products -->
         <section class="col-md">
+            <!-- header and search -->
             <div class="d-flex justify-content-between align-items-center pb-md-2">
                 <header>
-                    <span>
-                        Showing <strong>10</strong> of <strong>16</strong> results
+                    <span *ngIf="totalCount && totalCount > 0">
+                        Showing 
+                        <strong>
+                            {{ (this.shopParams.pageNumber - 1) * this.shopParams.pageSize + 1 }} - 
+                            {{ this.shopParams.pageNumber * this.shopParams.pageSize 
+                                > this.totalCount ? this.totalCount : this.shopParams.pageNumber * this.shopParams.pageSize
+                            }}
+                        </strong> 
+                        of 
+                        <strong>
+                            {{ this.totalCount }}
+                        </strong> 
+                        results
+                    </span>
+                    <span *ngIf="totalCount === 0">
+                        There are <strong>0</strong> results for this filter.
                     </span>
                 </header>
                 <div class="form-inline mt-md-2">
@@ -50,15 +66,20 @@
                 </div>
             </div>
 
+            <!-- product items -->
             <div class="row">
                 <div class="col-md-4 mb-md-4" *ngFor="let item of products">
                     <app-product-item [product]="item"></app-product-item>
                 </div>
             </div>
-            <div class="d-flex justify-content-center">
+
+            <!-- pagination -->
+            <div class="d-flex justify-content-center" *ngIf="totalCount > 0">
                 <pagination 
                     [boundaryLinks]="true" 
                     [totalItems]="this.totalCount"
+                    (pageChanged)="onPageChanged($event)"
+                    [itemsPerPage]="this.shopParams.pageSize"
                     previousText="&lsaquo;" 
                     nextText="&rsaquo;" 
                     firstText="&laquo;" 
