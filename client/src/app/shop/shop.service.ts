@@ -40,7 +40,7 @@ export class ShopService {
       );
   }
 
-  getProduct(id: number) {
+  getProduct(id: number): Observable<IProduct> {
     return this.http.get<IProduct>(this.baseUrl + 'products/' + id);
   }
 
