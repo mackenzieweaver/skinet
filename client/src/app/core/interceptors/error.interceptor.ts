@@ -16,8 +16,12 @@ export class ErrorInterceptor implements HttpInterceptor {
                     if (error){
                         // validation error
                         if (error.status === 400){
-                            // toastr service
-                            this.toastr.error(error.error.message, error.error.statusCode);
+                            if (error.error.errors){
+                                throw error.error;
+                            } else {
+                                // toastr service
+                                this.toastr.error(error.error.message, error.error.statusCode);
+                            }
                         }
                         if (error.status === 401){
                             // toastr service
