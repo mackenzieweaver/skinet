@@ -14,6 +14,9 @@ namespace API.Extensions
             // Repository pattern - abstract data access away from controllers
             services.AddScoped<IProductRepository, ProductRepository>();
 
+            // Basket Repository
+            services.AddScoped<IBasketRepository, BasketRepository>();
+
             // generic repository
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             
