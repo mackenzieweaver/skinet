@@ -31,4 +31,8 @@ export class BasketService {
       console.log(error);
     });
   }
+
+  getCurrentBasketValue() {
+    return this.basketSource.value;
+  }
 }
