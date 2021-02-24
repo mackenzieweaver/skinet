@@ -16,6 +16,7 @@ export class BasketService {
 
   constructor(private http: HttpClient) { }
 
+  // tslint:disable-next-line: typedef
   getBasket(id: string) {
     return this.http.get(this.baseUrl + 'basket?id=' + id)
       .pipe(
@@ -25,21 +26,28 @@ export class BasketService {
       );
   }
 
+  // tslint:disable-next-line: typedef
   setBasket(basket: IBasket) {
     return this.http.post(this.baseUrl + 'basket', basket).subscribe((response: IBasket) => {
       this.basketSource.next(response);
+      console.log(response);
     }, error => {
       console.log(error);
     });
   }
 
+  // tslint:disable-next-line: typedef
   getCurrentBasketValue() {
     return this.basketSource.value;
   }
 
+  // tslint:disable-next-line: typedef
   addItemToBasket(item: IProduct, quantity = 1){
     const itemToAdd: IBasketItem = this.mapProductItemToBasketItem(item, quantity);
-    const basket = this.getCurrentBasketValue() ?? this.createBasket();
+    let basket = this.getCurrentBasketValue();
+    if (basket === null) {
+      basket = this.createBasket();
+    }
     basket.items = this.addOrUpdateItem(basket.items, itemToAdd, quantity);
     this.setBasket(basket);
   }
