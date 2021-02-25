@@ -36,6 +36,7 @@ namespace API
                 x.UseSqlite(_config.GetConnectionString("IdentityConnection"));
             });
 
+            // redis db
             services.AddSingleton<IConnectionMultiplexer>(c => {
                 var configuration = ConfigurationOptions.Parse(_config.GetConnectionString("Redis"), true);
                 return ConnectionMultiplexer.Connect(configuration);
@@ -45,6 +46,7 @@ namespace API
             services.AddAutoMapper(typeof(MappingProfiles));
 
             services.AddApplicationServices();
+            services.AddIdentityServices();
 
             services.AddSwaggerDocumentation();
 
