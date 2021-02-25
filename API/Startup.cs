@@ -46,7 +46,7 @@ namespace API
             services.AddAutoMapper(typeof(MappingProfiles));
 
             services.AddApplicationServices();
-            services.AddIdentityServices();
+            services.AddIdentityServices(_config);
 
             services.AddSwaggerDocumentation();
 
@@ -74,7 +74,9 @@ namespace API
             app.UseStaticFiles();
 
             app.UseCors("CorsPolicy");
-
+            
+            // authentication must come before authorization
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseSwaggerDocumentation();
