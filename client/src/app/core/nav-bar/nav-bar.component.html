@@ -20,7 +20,23 @@
             <a routerLink="/account/register" class="btn btn-outline-secondary mr-md-3">Sign up</a>
         </ng-container>        
         <ng-container *ngIf="currentUser$ | async">
-            <a href="#">Welcome {{ (currentUser$ | async).displayName }}</a>
+            <div class="dropdown ml-md-m3 mr-md-5" dropdown>
+                <a class="dropdown-toggle" style="cursor: pointer;" dropdownToggle>
+                    <strong>Welcome {{ (currentUser$ | async).displayName }}</strong>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" style="cursor: pointer;" *bsDropdownMenu>
+                    <a routerLink="/basket" class="dropdown-item d-flex align-items-center py-md-2">
+                        <i class="fa fa-shopping-cart mr-md-3"></i>View Basket
+                    </a>
+                    <a routerLink="/orders" class="dropdown-item d-flex align-items-center py-md-2">
+                        <i class="fa fa-history mr-md-3"></i>View Orders
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a (click)="logout()" class="dropdown-item d-flex align-items-center py-md-2">
+                        <i class="fa fa-sign-out mr-md-3"></i>Logout
+                    </a>
+                </div>
+            </div>
         </ng-container>        
     </div>
 </div>
