@@ -26,7 +26,7 @@ namespace API
             // dependency injection container
             services.AddControllers();
 
-            // add db as service
+            // store db
             services.AddDbContext<StoreContext>(x => 
                 x.UseSqlite(_config.GetConnectionString("DefaultConnection"))
             );
@@ -42,7 +42,6 @@ namespace API
                 return ConnectionMultiplexer.Connect(configuration);
             });
 
-            // add automapper
             services.AddAutoMapper(typeof(MappingProfiles));
 
             services.AddApplicationServices();
