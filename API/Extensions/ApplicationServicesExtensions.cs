@@ -12,6 +12,9 @@ namespace API.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            // order service
+            services.AddScoped<IOrderService, OrderService>();
+
             // json web tokens service
             services.AddScoped<ITokenService, TokenService>();
 
