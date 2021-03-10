@@ -12,6 +12,9 @@ namespace API.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            // unit of work pattern as a service
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             // order service
             services.AddScoped<IOrderService, OrderService>();
 
