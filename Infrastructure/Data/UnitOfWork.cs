@@ -27,13 +27,16 @@ namespace Infrastructure.Data
 
         public IGenericRepository<TEntity> Repository<TEntity>() where TEntity : BaseEntity
         {
+            // if no repos, new hashtable
             if(_repositories == null)
             {
                 _repositories = new Hashtable();
             }
 
+            // always get type (name) of TEntity
             var type = typeof(TEntity).Name;
 
+            // if there is no repo make one
             if(!_repositories.ContainsKey(type))
             {
                 var repositoryType = typeof(GenericRepository<>);
@@ -42,6 +45,7 @@ namespace Infrastructure.Data
                 _repositories.Add(type, repositoryInstance);
             }
 
+            // else return the repo that already exists / the one just made
             return (IGenericRepository<TEntity>) _repositories[type];
         }
     }
